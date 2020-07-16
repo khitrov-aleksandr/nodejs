@@ -7,8 +7,11 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
+io.on('connect', socket => {
+    let counter = 0;
+    setInterval(() => {
+        socket.emit('hello', ++counter);
+    }, 15000);
 });
 
 http.listen(3000, () => {
